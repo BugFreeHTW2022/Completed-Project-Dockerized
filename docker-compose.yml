@@ -1,0 +1,104 @@
+version: "3.9"
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: 'rabbitmq:management'
+    ports:
+      - 5672:5672
+      - 15672:15672
+  mongoDB:
+    container_name: WarehouseDB
+    image: 'mongo:4.4.3'
+    restart: always
+    ports:
+      - "27017:27017"
+  currency:
+    container_name: CurrencyApp
+    image: currency:latest
+    build:
+      context:  ./Currency-Service
+      dockerfile: .docker/Dockerfile
+    environment:
+      - spring_rabbitmq_host=rabbitmq
+      - spring_rabbitmq_port=5672
+      - spring_rabbitmq_username=guest
+      - spring_rabbitmq_password=guest
+    ports:
+      - 9293:9293
+    depends_on:
+      - rabbitmq
+  gateway:
+    container_name: Gateway
+    build:
+      context: ./Gateway
+      dockerfile: .docker/Dockerfile
+    ports:
+      - '9292:9292'
+    depends_on:
+      - rabbitmq
+    environment:
+      - spring_rabbitmq_host=rabbitmq
+      - spring_rabbitmq_port=5672
+      - spring_rabbitmq_username=guest
+      - spring_rabbitmq_password=guest
+  price:
+    container_name: PriceApp
+    image: price:latest
+    build:
+     context: ./Price-Service
+     dockerfile: .docker/Dockerfile
+    ports:
+      - 9299:9299
+    depends_on:
+      - rabbitmq
+    environment:
+      - spring_rabbitmq_host=rabbitmq
+      - spring_rabbitmq_port=5672
+      - spring_rabbitmq_username=guest
+      - spring_rabbitmq_password=guest
+  product-service:
+    container_name: product-serviceApp
+    command: java -jar target/spring-data-redis-0.0.1-SNAPSHOT.jar
+    build:
+     context: ./Product-Service
+     dockerfile: .docker/Dockerfile
+    ports:
+      - 9295:9295
+    environment:
+      - spring_redis_host=product-serviceRedis
+      - spring_redis_port=6379
+      - spring_rabbitmq_host=rabbitmq
+      - spring_rabbitmq_port=5672
+      - spring_rabbitmq_username=guest
+      - spring_rabbitmq_password=guest
+    depends_on:
+      - redis
+      - rabbitmq
+  redis:
+    container_name: product-serviceRedis
+    image: 'redis:7.0.4'
+    restart: always
+    ports:
+      - "6379:6379"
+  warehouse:
+    container_name: WarehouseApp
+    command: java -jar target/demo-0.0.1-SNAPSHOT.jar
+    build:
+      context: ./Warehouse
+      dockerfile: .docker/Dockerfile
+    ports:
+      - 9297:9297
+    environment:
+      - spring_data_mongodb_host=mongoDB
+      - spring_data_mongodb_port=27017
+      - spring_data_mongodb_database=WarehouseDB
+    depends_on:
+      - mongoDB
+
+
+
+
+
+
+
+
