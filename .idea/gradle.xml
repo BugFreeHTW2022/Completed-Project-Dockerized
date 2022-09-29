@@ -4,10 +4,12 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="delegatedBuild" value="true" />
+        <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Currency-Service" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../Gradle/gradle-7.0" />
-        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../ProgramData/chocolatey/lib/gradle/tools/gradle-7.5.1" />
+        <option name="gradleJvm" value="openjdk-18" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/Currency-Service" />
@@ -15,10 +17,12 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="delegatedBuild" value="true" />
+        <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Gateway" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../Gradle/gradle-7.0" />
-        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../ProgramData/chocolatey/lib/gradle/tools/gradle-7.5.1" />
+        <option name="gradleJvm" value="openjdk-18" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/Gateway" />
@@ -26,10 +30,12 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="delegatedBuild" value="true" />
+        <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Price-Service" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../Gradle/gradle-7.0" />
-        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../ProgramData/chocolatey/lib/gradle/tools/gradle-7.5.1" />
+        <option name="gradleJvm" value="openjdk-18" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/Price-Service" />

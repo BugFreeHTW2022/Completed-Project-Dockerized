@@ -45,8 +45,8 @@ services:
     container_name: PriceApp
     image: price:latest
     build:
-     context: ./Price-Service
-     dockerfile: .docker/Dockerfile
+      context: ./Price-Service
+      dockerfile: .docker/Dockerfile
     ports:
       - 9299:9299
     depends_on:
@@ -60,8 +60,8 @@ services:
     container_name: product-serviceApp
     command: java -jar target/spring-data-redis-0.0.1-SNAPSHOT.jar
     build:
-     context: ./Product-Service
-     dockerfile: .docker/Dockerfile
+      context: ./Product-Service
+      dockerfile: .docker/Dockerfile
     ports:
       - 9295:9295
     environment:
@@ -94,8 +94,39 @@ services:
       - spring_data_mongodb_database=WarehouseDB
     depends_on:
       - mongoDB
-
-
+  identity-management:
+    image: identity-management-service:latest
+    depends_on:
+      - identity-management-service-postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://identity-management-service-postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    build:
+      context: ./identity-management-service
+      dockerfile: Dockerfile
+    volumes:
+      - /data/identity-management-service
+    ports:
+      - '8081:8080'
+  identity-management-service-postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    container_name: identity-management-service-postgres
+    hostname: identity-management-service-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+  frontend:
+    image: frontend:latest
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - '8080:80'
 
 
 
