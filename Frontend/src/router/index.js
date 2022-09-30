@@ -20,7 +20,7 @@ const routes = [
   {
     path: '/recipe-details/:id',
     name: 'recipeDetail',
-    component: () => import('../views/RecipeDetailview.vue')
+    component: () => import('../views/RecipeDetailView.vue')
   },
   {
     path: '/login',

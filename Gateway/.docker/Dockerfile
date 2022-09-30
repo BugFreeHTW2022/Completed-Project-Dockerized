@@ -12,8 +12,8 @@ COPY ../build.gradle ../settings.gradle ../gradlew ./
 COPY ../src src
 
 # Build microservice
+RUN chmod +x gradlew
 RUN ./gradlew build
-RUN ls -la
 
 FROM openjdk:17
 

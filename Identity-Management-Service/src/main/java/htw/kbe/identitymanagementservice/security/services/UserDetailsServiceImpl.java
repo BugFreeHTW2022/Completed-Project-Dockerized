@@ -1,7 +1,7 @@
 package htw.kbe.identitymanagementservice.security.services;
 
-import htw.kbe.identitymanagementservice.models.UserEntity;
-import htw.kbe.identitymanagementservice.repository.UserRepository;
+import htw.kbe.identitymanagementservice.persistence.entities.UserEntity;
+import htw.kbe.identitymanagementservice.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
-    UserRepository userRepository;
+    final UserRepository userRepository;
+
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     @Transactional
